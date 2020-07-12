@@ -3,11 +3,13 @@ from rest_framework import viewsets
 from rest_framework import mixins
 from .serializers import viewsetserializer
 from .models import Student
+from rest_framework.filters import SearchFilter
 
 # Create your views here.
 class viewsetclass(viewsets.ReadOnlyModelViewSet):
     serializer_class = viewsetserializer
     queryset = Student.objects.all()
+
 
 #creating class which will provide all http methods and their responses
 class viewsetclass( mixins.RetrieveModelMixin,
@@ -16,3 +18,5 @@ class viewsetclass( mixins.RetrieveModelMixin,
                     viewsets.GenericViewSet):
     serializer_class = viewsetserializer
     queryset = Student.objects.all()
+    filter_backends = [SearchFilter]
+    search_fields = ["place"]
